@@ -5,7 +5,8 @@ module AppGate
     end
 
     def call(env)
-      AppGate::Apps.valid?(AppGate.app_id) ? @app.call(env) : not_authorized()
+      # 'HTTP_' is prefixed to all HTTP headers in the Rack spec.
+      AppGate::Apps.valid?(env['HTTP_APP_GATE_APP_ID']) ? @app.call(env) : not_authorized()
     end
 
     protected
