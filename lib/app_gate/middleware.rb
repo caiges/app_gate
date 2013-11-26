@@ -5,8 +5,6 @@ module AppGate
     end
 
     def call(env)
-      puts env
-      puts AppGate.app_id
       @app.call(env)
     end
   end
