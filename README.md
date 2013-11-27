@@ -17,11 +17,11 @@ Clone the a copy of the repository to somewhere handy.
 
 For example, if you clone the repo to a shared projects directory:
 
-|-- app_gate
-|-- your-rails-app
-    |-- ...
-    |-- Gemfile
-    |-- ...
+    |-- app_gate
+    |-- your-rails-app
+        |-- ...
+        |-- Gemfile
+        |-- ...
 
 Add this line to your application's Gemfile:
 
