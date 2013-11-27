@@ -4,10 +4,12 @@ Rack based Application/Service validation library.
 
 The authentication is based on shared identifiers using a custom HTTP header and application configuration.
 
-HTTP requests received by a particular application/service should include a custom HTTP header `APP_GATE_APP_ID` whose value corresponds to the calling application's identifier. That identifier is stored (for now) in `lib/app_gate/apps`.
+This relationship is defined by a receiver and a caller.
+
+HTTP requests received by a particular application/service (receiver) validate a custom HTTP header `APP_GATE_APP_ID` included in the HTTP request by another application (caller). The value of that header corresponds to the calling application's identifier (caller). That identifier is stored (for now) in `lib/app_gate/apps`.
 
 `lib/app_gate/apps` stores application/service identifiers
-`lib/app_gate/middleware` validates that the custom
+`lib/app_gate/middleware` validates the custom HTTP header (APP_GATE_APP_ID)
 
 ## Installation
 
@@ -29,13 +31,43 @@ And then execute:
 
     $ bundle
 
-## Rails Integration
+## Calling Application
+
+Whenever a request is made to a receiving application/service (receiver) the application/service identifier must be included in the `APP_GATE_APP_ID` HTTP header.
+
+### Rails Integration
 
 Add an initializer to `config/initializers` named `app_gate.rb`
 
     require 'app_gate'
 
     AppGate.app_id = 'identifier-for-this-application-stored-in-app-gate'
+
+The `app_id` could be stored elsewhere in the application configuration but since this API is loosely defined and the "ID registration and storage" implementation could change significantly in the future we're setting it here.
+
+### Sinatra Integration
+
+Within your Sinatra application, set the `app_id`
+
+    require 'app_gate'
+
+    AppGate.app_id = 'identifier-for-this-application-stored-in-app-gate'
+
+## Receiving Application/Service
+
+This will allow AppGate to validate that the incoming request contains a valid application/service identifier and shortcuts further application processing.
+
+### Rails Integration
+
+Within `config/application.rb` or `config/environments/**.rb` instruct Rails to use the AppGate middleware.
+
+   config.middleware.before ActionDispatch::Session::CookieStore, AppGate::Middleware 
+
+### Sinatra Integration
+
+Within your Sinatra application, include the AppGate middleware:
+
+    `use AppGate::Middleware`
 
 ## Application/Service Identifiers
 
