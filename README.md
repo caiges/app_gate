@@ -75,7 +75,7 @@ Within `config/application.rb` or `config/environments/**.rb` instruct Rails to 
 
 Within your Sinatra application, include the AppGate middleware:
 
-    `use AppGate::Middleware`
+    use AppGate::Middleware
 
 ## Application/Service Identifiers
 
