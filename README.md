@@ -17,11 +17,11 @@ Clone the a copy of the repository to somewhere handy.
 
 For example, if you clone the repo to a shared projects directory:
 
-|-- app_gate
-|-- your-rails-app
-    |-- ...
-    |-- Gemfile
-    |-- ...
+    |-- app_gate
+    |-- your-rails-app
+        |-- ...
+        |-- Gemfile
+        |-- ...
 
 Add this line to your application's Gemfile:
 
@@ -50,9 +50,17 @@ The `app_id` could be stored elsewhere in the application configuration but sinc
 Within your Sinatra application, set the `app_id`
 
     require 'app_gate'
-
+    
     AppGate.app_id = 'identifier-for-this-application-stored-in-app-gate'
-
+    
+    ...
+    
+    get '/' do
+        puts 'Blars Tacoman!'
+    end
+    
+    ...
+    
 ## Receiving Application/Service
 
 This will allow AppGate to validate that the incoming request contains a valid application/service identifier and shortcuts further application processing.
