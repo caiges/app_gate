@@ -5,7 +5,7 @@ module AppGate
   module Apps
 
     @ids = {
-      client_site: 'uab98cQsZ9G2f9tAEC-bhA' 
+      sample_app: 'uab98cQsZ9G2f9tAEC-bhA' 
     }
 
     # @return [Hash] a collection of applications and their identifiers.
